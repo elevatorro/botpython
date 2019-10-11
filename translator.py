@@ -4,6 +4,8 @@ import requests
 bot = telebot.TeleBot('875453514:AAGOHpF7rSksQAzb7YqcpCaj0ycA_iOE1Gg')
 URL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
 key = "trnsl.1.1.20191011T061435Z.ffad2073abd4d655.e60bfa5bcced5b562031f54d2e2e9948c7db5da5"
+temp=0
+
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
@@ -12,17 +14,35 @@ def start_message(message):
 
 @bot.message_handler(content_types=['text'])
 def send_text(message):
-    params = {
-        "key" : key,
-        "text" : message,
-        "lang" : 'en'
-    }
-    response = requests.get(URL, params=params)
+    if temp==0:
+        params = {
+            "key": key,
+            "text": message,
+            "lang": 'ru-en'
+        }
+        response = requests.get(URL, params=params)
+    else:
+        params = {
+            "key": key,
+            "text": message,
+            "lang": 'en-ru'
+        }
+        response = requests.get(URL, params=params)
     return response.json()
 
 @bot.message_handler(commands=['help'])
 def help_message(message):
     bot.send_message(message.chat.id, 'commands:\n/ru с русского на англ\n/en с англ на русский')
+
+@bot.message_handler(commands=['ru'])
+def ru_message(message):
+    temp=0
+    bot.send_message(message.chat.id, 'perevodim s rus na angl')
+
+@bot.message_handler(commands=['en'])
+def ru_message(message):
+    temp=1
+    bot.send_message(message.chat.id, 'perevodim s en na ru')
 
 
 bot.polling()

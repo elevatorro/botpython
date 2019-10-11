@@ -1,0 +1,28 @@
+import telebot
+import requests
+
+bot = telebot.TeleBot('875453514:AAGOHpF7rSksQAzb7YqcpCaj0ycA_iOE1Gg')
+URL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
+key = "trnsl.1.1.20191011T061435Z.ffad2073abd4d655.e60bfa5bcced5b562031f54d2e2e9948c7db5da5"
+
+@bot.message_handler(commands=['start'])
+def start_message(message):
+    bot.send_message(message.chat.id, 'type help')
+
+
+@bot.message_handler(content_types=['text'])
+def send_text(message):
+    params = {
+        "key" : key,
+        "text" : message,
+        "lang" : 'ru-en'
+    }
+    response = requests.get(URL, params=params)
+    return response.json()
+
+@bot.message_handler(commands=['help'])
+def help_message(message):
+    bot.send_message(message.chat.id, 'commands:\n/ru с русского на англ\n/en с англ на русский')
+
+
+bot.polling()

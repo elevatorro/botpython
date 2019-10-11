@@ -15,7 +15,7 @@ def send_text(message):
     params = {
         "key" : key,
         "text" : message,
-        "lang" : 'ru-en'
+        "lang" : 'en'
     }
     response = requests.get(URL, params=params)
     return response.json()

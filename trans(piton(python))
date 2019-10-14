@@ -1,0 +1,20 @@
+try:
+    data = r.json()
+    self.status = data.get('code')
+    if self.status in self.status_code:
+        if self.status == 200:
+            self.data = data['text'][0]
+        else:
+            # что-то не в порядке
+            print('Translate|%s' % self.status_code[self.status])
+            self.error = self.status_code[self.status]
+        
+            if self.status in [402,404]:
+                self.limit_day = True
+            elif self.status in [422,501]:
+                self.no_translate = True
+            elif self.status == 413:
+                self.limit_size = True
+            elif self.status == 401:
+                self.bad_key = True
+....

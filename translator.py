@@ -3,7 +3,7 @@ import requests
 
 bot = telebot.TeleBot('875453514:AAGOHpF7rSksQAzb7YqcpCaj0ycA_iOE1Gg')
 URL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
-key = "trnsl.1.1.20191011T061435Z.ffad2073abd4d655.e60bfa5bcced5b562031f54d2e2e9948c7db5da5"
+key = "yandex translator key"
 temp=0
 
 

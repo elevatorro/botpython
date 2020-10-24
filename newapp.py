@@ -3,7 +3,7 @@ import requests
 import json
 import psycopg2 as pg
 
-bot = telebot.TeleBot('1061275087:AAHlKAYej5lxbF_-KOpTTQhHBEDV3G919Hk')
+bot = telebot.TeleBot('Telegram_Token')
 global temp1
 temp1=0
 
@@ -25,7 +25,7 @@ def asd(message):
 
 @bot.message_handler(commands=['aboutme'])
 def addition(message):
-    conn = pg.connect(dbname='pytdb', user='postgres', password='321', host='127.0.0.1')
+    conn = pg.connect(dbname='dbname', user='user', password='password', host='127.0.0.1')
     cursor = conn.cursor()
     # cursor.execute('SELECT * FROM public.teltable')
 
@@ -48,7 +48,7 @@ def register(message):
     print("ya robu")
     temp={}
     data={}
-    conn = pg.connect(dbname='pytdb', user='postgres', password='321', host='127.0.0.1')
+    conn = pg.connect(dbname='dbname', user='user', password='password', host='127.0.0.1')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM public.pyt WHERE pyt.userid='%s'" % message.from_user.id)
     for i in cursor:
@@ -84,7 +84,7 @@ def regist(message):
                     imya = message.text
             """""
         global temp1
-        conn = pg.connect(dbname='pytdb', user='postgres', password='321', host='127.0.0.1')
+        conn = pg.connect(dbname='dbname', user='user', password='password', host='127.0.0.1')
         cursor = conn.cursor()
         if temp1==0:
             mass = message.text
@@ -97,8 +97,7 @@ def regist(message):
             print("ya robu")
             temp = {}
             data = {}
-            #conn = pg.connect(dbname='pytdb', user='postgres', password='321', host='127.0.0.1')
-            #cursor = conn.cursor()
+            
             cursor.execute("SELECT * FROM public.pyt WHERE pyt.userid='%s'" % message.from_user.id)
             for i in cursor:
                 data.update({i[0]: i[1]})
@@ -112,11 +111,10 @@ def regist(message):
                 conn.commit()
         if temp1==1:
             mass=message.text
-            #mass=int(mass)
+            
             cursor.execute("UPDATE pyt SET posesh=posesh+1 WHERE pyt.zachet=%s",(mass,))
             conn.commit()
-      #  return asd,zach
-
+      
 
 def token(string):
         start, i = 0, 0
